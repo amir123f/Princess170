@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f8e9ed" />
+  <meta name="description" content="یک نامهٔ کوچک و خاص برای یک آدم خاص" />
+  <title>نامه‌ای برای پرنسس 💌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #755060;
+      --ink-strong: #603d4e;
+      --pink: #ee9eae;
+      --rose: #d97691;
+      --paper: #fffaf6;
+      --purple: #b49fc5;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      overflow-x: hidden;
+      font-family: Vazirmatn, Tahoma, sans-serif;
+      color: var(--ink);
+      background: #faeef0;
+    }
+    button { font: inherit; -webkit-tap-highlight-color: transparent; cursor: pointer; }
+    button:focus-visible { outline: 3px solid #a46d93; outline-offset: 7px; }
+    [hidden] { display: none !important; }
+    .experience {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      isolation: isolate;
+      overflow: hidden;
+      padding: 32px 16px 52px;
+    }
+    .backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 13% 14%, #fffbf3 0%, transparent 44%),
+        radial-gradient(ellipse at 85% 17%, #e9d4e9 0%, transparent 42%),
+        radial-gradient(ellipse at 15% 88%, #f9d3d9 0%, transparent 48%),
+        linear-gradient(145deg, #fff1e9 0%, #f9e2eb 48%, #f0e7f8 100%);
+      transition: filter .8s ease, transform 1s var(--ease);
+    }
+    .orb { position: absolute; border-radius: 50%; filter: blur(3px); opacity: .52; animation: breathe 9s ease-in-out infinite alternate; }
+    .orb.one { width: 280px; height: 280px; left: -140px; top: 10%; background: #ffeac7; }
+    .orb.two { width: 350px; height: 350px; right: -230px; bottom: 3%; background: #e7c6e8; animation-delay: -3s; }
+    .orb.three { width: 130px; height: 130px; top: 19%; right: 8%; background: #ffd8df; animation-delay: -5s; }
+    .petal {
+      position: absolute;
+      width: var(--size, 8px);
+      height: var(--size, 8px);
+      top: var(--top);
+      left: var(--left);
+      background: var(--tint, #fff);
+      border-radius: 75% 0 75% 0;
+      transform: rotate(24deg);
+      opacity: .6;
+      animation: drift var(--duration, 7s) ease-in-out infinite alternate;
+      animation-delay: var(--delay, 0s);
+    }
+    .star {
+      position: absolute; color: #fff; opacity: .78;
+      font: 20px/1 Georgia, serif;
+      animation: twinkle 3.5s ease-in-out infinite alternate;
+    }
+    .star.a { top: 23%; left: 19%; }
+    .star.b { top: 65%; right: 11%; animation-delay: -1.5s; }
+    .star.c { top: 75%; left: 27%; animation-delay: -2.4s; font-size: 13px; }
+    .intro, .stage-wrap, .hint, .footer-tag {
+      transition: filter .75s ease, opacity .75s ease, transform .75s ease;
+    }
+    .intro { text-align: center; margin: 0 0 42px; z-index: 1; }
+    .eyebrow { font-size: 10px; font-weight: 800; letter-spacing: .38em; color: #ae8c9e; text-transform: uppercase; direction: ltr; }
+    .intro h1 { font-size: clamp(26px, 7vw, 38px); line-height: 1.5; color: #8a506a; margin: 12px 0 4px; font-weight: 800; }
+    .intro p { font-size: 13px; margin: 0; opacity: .77; }
+    .stage-wrap { display: grid; place-items: center; z-index: 1; width: min(100%, 440px); min-height: 255px; }
+    .envelope-button { border: 0; padding: 16px 6px 18px; background: transparent; display: grid; justify-items: center; }
+    .envelope-button:disabled { cursor: default; }
+    .envelope {
+      position: relative;
+      width: min(78vw, 322px);
+      height: min(52vw, 213px);
+      min-height: 173px;
+      perspective: 1100px;
+      filter: drop-shadow(0 20px 27px rgba(159, 79, 106, .20));
+      transform-origin: center;
+      transition: transform .5s var(--ease);
+    }
+    .envelope-button:not(:disabled):hover .envelope { transform: translateY(-7px) rotate(-1deg); }
+    .envelope-button:not(:disabled):active .envelope { transform: translateY(0) scale(.98); }
+    .envelope-back { position: absolute; inset: 0; z-index: 1; border-radius: 10px; background: linear-gradient(125deg, #e99cb2, #f4afbc); box-shadow: inset 0 2px 7px rgba(255,255,255,.35); }
+    .mini-letter {
+      position: absolute;
+      z-index: 2;
+      bottom: 12%; left: 10%; width: 80%; height: 80%;
+      border-radius: 7px 7px 4px 4px;
+      background: linear-gradient(165deg, #fffcf8, #fff5ef);
+      box-shadow: 0 1px 10px #ab657d3a;
+      display: grid;
+      justify-items: center;
+      align-content: start;
+      gap: 12px;
+      padding-top: 16%;
+      transform: translateY(0);
+    }
+    .mini-letter span:first-child { font-size: 20px; color: #d996a8; }
+    .mini-letter span:last-child { width: 58%; height: 2px; background: #ead4d8; box-shadow: 0 12px #ead4d8, 0 24px #ead4d8; }
+    .envelope.open .mini-letter { animation: letter-peek .9s var(--ease) .55s both; }
+    /* Seamless handoff: the small paper is retired in the exact same paint
+       as the full-size paper enters a top-level overlay. */
+    .envelope.handoff .mini-letter { visibility: hidden; }
+    .envelope-front {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      border-radius: 0 0 9px 9px;
+      background: linear-gradient(135deg, #f8c1cb, #e998ab 68%, #e78ba2);
+      clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+    }
+    .envelope-front::before, .envelope-front::after { content: ''; position: absolute; inset: 0; }
+    .envelope-front::before { background: #f8bdc8; clip-path: polygon(0 0, 50% 56%, 0 100%); }
+    .envelope-front::after { background: #f3adbd; clip-path: polygon(100% 0, 50% 56%, 100% 100%); }
+    .envelope-flap {
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      background: linear-gradient(180deg, #f9c2cd, #f5afbf);
+      clip-path: polygon(0 0, 100% 0, 50% 57%);
+      transform-origin: center top;
+      backface-visibility: hidden;
+      transition: transform .85s cubic-bezier(.44, .05, .24, 1);
+      filter: drop-shadow(0 3px 3px rgba(132, 71, 96, .11));
+    }
+    .envelope.open .envelope-flap { transform: rotateX(180deg); }
+    .envelope.flap-behind .envelope-flap { z-index: 1; }
+    .seal {
+      position: absolute;
+      z-index: 7;
+      top: 46%; left: 50%;
+      width: 48px; height: 48px;
+      transform: translate(-50%, -10%);
+      border-radius: 50%;
+      background: linear-gradient(140deg, #d77899, #ba6287);
+      border: 2px solid #f7cad5;
+      box-shadow: 0 3px 9px #a7557970, inset 0 2px 5px #fff6;
+      display: grid; place-items: center;
+      color: #ffeced; font-size: 25px;
+      transition: transform .35s ease, opacity .35s ease;
+    }
+    .envelope.open .seal { opacity: 0; transform: translate(-50%, -10%) scale(.65); }
+    .hint { display: flex; gap: 8px; align-items: center; justify-content: center; text-align: center; color: #94677c; font-weight: 700; font-size: 14px; margin-top: 13px; animation: soft-bob 2.7s ease-in-out infinite; }
+    .hint-icon { display: inline-flex; font-size: 17px; }
+    .footer-tag { position: absolute; bottom: max(20px, env(safe-area-inset-bottom)); text-align: center; color: #ad94a4; font-size: 10px; letter-spacing: .15em; direction: ltr; }
+    .experience.reading .backdrop { filter: blur(13px) saturate(.8); transform: scale(1.08); }
+    .experience.reading .intro, .experience.reading .stage-wrap, .experience.reading .hint, .experience.reading .footer-tag { filter: blur(7px); opacity: .3; transform: scale(.96); pointer-events: none; }
+    .overlay {
+      position: fixed;
+      z-index: 30;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: max(20px, env(safe-area-inset-top)) 19px max(20px, env(safe-area-inset-bottom));
+      /* No fade on the whole overlay: that previously produced a ghost frame
+         where the new sheet seemed to slip behind the envelope. */
+      opacity: 1;
+      pointer-events: none;
+    }
+    .overlay.visible { pointer-events: auto; }
+    .veil { position: absolute; inset: 0; background: rgba(122, 75, 103, .20); backdrop-filter: blur(0); -webkit-backdrop-filter: blur(0); transition: backdrop-filter .7s ease, -webkit-backdrop-filter .7s ease; }
+    .overlay.visible .veil { backdrop-filter: blur(11px); -webkit-backdrop-filter: blur(11px); }
+    .letter-card {
+      position: relative;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      width: min(100%, 462px);
+      max-height: calc(100svh - 38px);
+      min-height: min(475px, 72svh);
+      border-radius: 6px 20px 10px 20px;
+      background:
+        repeating-linear-gradient(180deg, transparent 0 35px, #dfbabb20 35px 36px),
+        linear-gradient(150deg, #fffdf9 0%, #fff5f0 100%);
+      box-shadow: 0 26px 70px rgba(99, 52, 74, .26), 0 2px 4px rgba(99, 52, 74, .08), inset 0 0 0 1px #fff;
+      border: 1px solid #f4e2e1;
+      padding: clamp(22px, 6vw, 31px) clamp(23px, 7vw, 38px) 22px;
+      transform: translate(var(--from-x, 0), var(--from-y, 120px)) scale(var(--from-scale, .7)) rotate(-3deg);
+      opacity: 0;
+      transform-origin: center top;
+      position: relative;
+      z-index: 2;
+      will-change: transform, clip-path;
+      scrollbar-width: thin;
+      scrollbar-color: #eacbd3 transparent;
+    }
+    .letter-card.arriving { animation: fly-forward 1.12s cubic-bezier(.16, .92, .28, 1.05) forwards; }
+    .letter-card.settled { opacity: 1; transform: none; clip-path: none; }
+    .card-top { display: flex; justify-content: space-between; align-items: center; direction: ltr; color: #bda0ae; font-size: 10px; font-weight: 800; letter-spacing: .18em; }
+    .stamp { direction: ltr; display: inline-grid; place-items: center; border: 1px dashed #dbaebb; border-radius: 50%; height: 38px; width: 38px; color: #d4849d; font: 22px Georgia, serif; transform: rotate(-12deg); }
+    .letter-heading { text-align: center; margin-top: 11px; }
+    .letter-heading .crown { font-size: 23px; display: block; margin-bottom: 2px; animation: crown-glow 3s ease-in-out infinite alternate; }
+    .letter-heading h2 { font-size: clamp(24px, 7.5vw, 32px); line-height: 1.7; color: #b86e8a; font-weight: 800; margin: 0; }
+    .letter-heading .rule { width: 72px; height: 1px; background: linear-gradient(90deg, transparent, #df9bb0, transparent); margin: 9px auto 0; }
+    .message-area { direction: rtl; text-align: right; color: var(--ink-strong); padding-top: 17px; font-size: clamp(14px, 3.8vw, 16px); line-height: 1.9; min-height: 140px; }
+    #typedMessage { white-space: pre-wrap; overflow-wrap: anywhere; unicode-bidi: plaintext; }
+    .caret { display: inline-block; height: 1.1em; vertical-align: -.18em; border-left: 2px solid #d77796; margin-right: 2px; animation: blink .75s step-end infinite; }
+    .caret.done { display: none; }
+    .letter-signature { margin-top: 13px; font-size: 12px; color: #b78096; opacity: 0; transform: translateY(6px); transition: opacity .6s ease, transform .6s ease; text-align: left; }
+    .letter-signature.show { opacity: 1; transform: translateY(0); }
+    .letter-actions { margin-top: 14px; display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; }
+    .action {
+      border-radius: 999px;
+      border: 1px solid #e9b9c7;
+      background: #fff7f6;
+      color: #af6a85;
+      min-height: 41px;
+      padding: 7px 17px;
+      font-weight: 700;
+      font-size: 12px;
+      box-shadow: 0 4px 13px #dfb4c135;
+      transition: background .2s, transform .2s;
+    }
+    .action.primary { color: #fff; border-color: #d67c99; background: linear-gradient(135deg, #e79aac, #ce7594); }
+    .action:hover { transform: translateY(-2px); }
+    .action:active { transform: translateY(0); }
+    .letter-doodle { text-align: center; font-size: 15px; margin-top: 9px; opacity: .65; letter-spacing: .8em; color: #dca5b6; }
+    @keyframes breathe { to { transform: translate3d(26px, 20px, 0) scale(1.08); } }
+    @keyframes drift { 0% { transform: rotate(25deg) translateY(0); } 100% { transform: rotate(85deg) translate(19px, -35px); } }
+    @keyframes twinkle { to { opacity: .22; transform: scale(.7); } }
+    @keyframes soft-bob { 50% { transform: translateY(-5px); } }
+    @keyframes blink { 50% { opacity: 0; } }
+    @keyframes crown-glow { to { filter: drop-shadow(0 0 9px #eaa1ae); } }
+    @keyframes letter-peek {
+      0% { transform: translateY(0) rotate(0); }
+      58% { transform: translateY(-45%) rotate(-2deg); }
+      100% { transform: translateY(-62%) rotate(-3deg); }
+    }
+    @keyframes fly-forward {
+      /* Always in front of envelope. Reveal the rest of the sheet as it lifts. */
+      0% {
+        transform: translate(var(--from-x, 0), var(--from-y, 120px)) scale(var(--from-scale, .7)) rotate(-3deg);
+        clip-path: inset(0 0 74% 0 round 7px);
+        opacity: 1;
+      }
+      24% {
+        transform: translate(var(--from-x, 0), calc(var(--from-y, 120px) - 53px)) scale(var(--from-scale, .7)) rotate(-2deg);
+        clip-path: inset(0 0 52% 0 round 7px);
+        opacity: 1;
+      }
+      72% {
+        transform: translate(0, -13px) scale(1.025) rotate(.5deg);
+        clip-path: inset(0 0 0 0 round 7px);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(0, 0) scale(1) rotate(0);
+        clip-path: inset(0 0 0 0 round 7px);
+        opacity: 1;
+      }
+    }
+    @media (max-height: 680px) {
+      .experience { padding-top: 17px; }
+      .intro { margin-bottom: 12px; }
+      .intro h1 { margin: 2px 0; }
+      .stage-wrap { min-height: 210px; }
+      .envelope { width: min(63vw, 260px); height: 170px; min-height: 170px; }
+      .letter-card { min-height: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .petal, .orb, .star, .hint, .letter-heading .crown { animation: none; }
+      .envelope.open .mini-letter { animation-duration: .01ms; animation-delay: 0ms; }
+      .envelope-flap { transition-duration: .01ms; }
+      .letter-card.arriving { animation-duration: .01ms; }
+      .experience.reading .backdrop, .experience.reading .intro, .experience.reading .stage-wrap { transition-duration: .01ms; }
+    }
+
+    /* Surprise #2: a hand-crafted, accessible 3D gift box */
+    .overlay.closing { pointer-events: none; }
+    .overlay.closing .letter-card { animation: paper-goodbye .38s ease-in forwards; }
+    .overlay.closing .veil { backdrop-filter: blur(0); -webkit-backdrop-filter: blur(0); background: transparent; }
+    .experience.gifting .backdrop { filter: blur(13px) saturate(.85); transform: scale(1.08); }
+    .experience.gifting .intro, .experience.gifting .stage-wrap, .experience.gifting .hint, .experience.gifting .footer-tag {
+      filter: blur(7px); opacity: .32; transform: scale(.96); pointer-events: none;
+    }
+    .gift-overlay { position: fixed; z-index: 42; inset: 0; display: grid; place-items: center; padding: max(15px, env(safe-area-inset-top)) 15px max(15px, env(safe-area-inset-bottom)); isolation: isolate; }
+    .gift-veil { position: absolute; inset: 0; z-index: -1; background: rgba(128, 76, 104, .21); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .gift-scene { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 375px; gap: 12px; transition: opacity .3s ease, transform .3s ease; }
+    .gift-scene.vanishing { opacity: 0; transform: translateY(-20px) scale(.94); pointer-events: none; }
+    .gift-announcement { min-height: 64px; text-align: center; font-size: clamp(17px, 4.7vw, 21px); line-height: 1.8; font-weight: 800; color: #87566e; text-shadow: 0 2px 7px #fff8; opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s var(--ease); }
+    .gift-scene.ready .gift-announcement, .gift-scene.launching .gift-announcement { opacity: 1; transform: none; }
+    .gift-box-button { width: 240px; height: 225px; max-width: 72vw; border: none; background: transparent; display: grid; place-items: center; position: relative; overflow: visible; touch-action: manipulation; filter: drop-shadow(0 19px 22px rgba(122, 56, 98, .18)); }
+    .gift-box-button:focus-visible { outline-offset: 0; border-radius: 30px; }
+    .gift-box-button.launching { animation: gift-leap 1.45s cubic-bezier(.19,.93,.29,1) forwards; }
+    .gift-box-button.returning { animation: gift-return .7s var(--ease) both; }
+    .gift-box-button:disabled { cursor: default; }
+    .gift-art { position: relative; width: 180px; height: 182px; display: block; transform: translateZ(0); }
+    .gift-ground { position: absolute; bottom: 6px; left: 11px; right: 11px; height: 21px; border-radius: 50%; background: #b86a9160; filter: blur(12px); }
+    .gift-base { position: absolute; width: 154px; height: 111px; bottom: 19px; left: 13px; background: linear-gradient(135deg,#f8bad0 0%, #e989ad 63%, #d8779e 100%); border: 2px solid #ffdbdf99; border-radius: 9px 9px 17px 17px; box-shadow: inset -12px -7px 24px #c8668930,inset 5px 4px 9px #fff6; }
+    .gift-base::before { content:''; position:absolute; inset:0 auto 0 50%; width: 28px; transform: translateX(-50%); background: linear-gradient(90deg,#fff8ca,#fff3d8 52%,#f0d296); box-shadow: 1px 0 5px #ad798b22; }
+    .gift-lid { position: absolute; width: 174px; height: 44px; top: 43px; left: 3px; z-index: 3; background: linear-gradient(150deg,#ffd0df,#ed98b7 75%); border: 2px solid #ffdfeb; border-radius: 11px; box-shadow: 0 9px 12px #ac618659, inset 5px 4px 8px #fff5; transform-origin: 84px 34px; }
+    .gift-lid::before { content:''; position:absolute; inset:-2px auto -2px 50%; width: 31px; transform:translateX(-50%); background:linear-gradient(90deg,#ffefc3,#fff6dd,#f4d59d); }
+    .gift-bow { position:absolute; top: -30px; left: 50%; transform: translateX(-50%); width: 94px; height: 48px; z-index:4; }
+    .gift-bow::before, .gift-bow::after { content:''; position:absolute; top:9px; width:44px; height:27px; border:9px solid #fff2cf; box-shadow: inset 0 1px 4px #dba97e66, 0 2px 3px #b46b8155; border-radius: 60% 55% 60% 60%; }
+    .gift-bow::before { right: 47px; transform: rotate(-24deg); }
+    .gift-bow::after { left:47px; transform: rotate(24deg); }
+    .gift-knot { position:absolute; width:26px; height:23px; left:50%; top:17px; transform: translateX(-50%); z-index:5; border-radius:9px; background:linear-gradient(150deg,#fffbdc,#e9c78e); box-shadow:0 2px 4px #bf858055; }
+    .gift-box-button.opening .gift-lid { animation: gift-lid-pop .85s cubic-bezier(.17,.81,.28,1) forwards; }
+    .gift-box-button.opening .gift-base { animation: gift-base-pop .8s ease-in-out forwards; }
+    .gift-box-button.opening .gift-art::after { content:'✦'; position:absolute; left:72px; top:50px; z-index:4; color:#fff7d1; font-size:48px; animation: magic-glow .7s ease-out forwards; }
+    .gift-tap-hint { margin:0; text-align:center; font-size:13px; color:#8b6478; font-weight:700; opacity:0; transition: opacity .4s ease; animation: soft-bob 2.5s ease-in-out infinite; }
+    .gift-scene.ready .gift-tap-hint { opacity:1; }
+    .gift-sparkles { position:absolute; left:50%; top:51%; width:1px; height:1px; pointer-events:none; z-index:5; }
+    .gift-sparkles span { position:absolute; left:0; top:0; color:var(--spark-color,#fff5a6); font-size:var(--spark-size,18px); opacity:0; }
+    .gift-sparkles.active span { animation: sparkle-fly var(--spark-duration,.95s) ease-out var(--spark-delay,0s) both; }
+    .reward-panel { position:relative; width:min(100%,455px); max-height:calc(100svh - 30px); overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; background:linear-gradient(145deg,#fffdfb,#fff2f5); border:1px solid #fff; border-radius:26px; padding:27px clamp(18px,5vw,30px) 24px; text-align:center; box-shadow:0 26px 80px #7c3a6250, inset 0 0 0 1px #f4d9e0; }
+    .reward-panel.revealed { animation: reward-in .75s cubic-bezier(.19,1.2,.35,1) both; }
+    .gift-close { position:absolute; right:14px; top:12px; width:37px; height:37px; border:0; background:#f9e6ec; color:#9c6980; border-radius:50%; font-size:22px; line-height:1; display:grid; place-items:center; }
+    .reward-symbol { width:64px; height:64px; display:grid; place-items:center; margin:0 auto 4px; border-radius:21px; background:linear-gradient(140deg,#fff0e1,#f8d5e5); font-size:31px; box-shadow:0 5px 20px #e4a7bd55; }
+    .reward-eyebrow { margin:10px 0 0; color:#bd8c9f; font:800 10px Vazirmatn,Tahoma,sans-serif; letter-spacing:.15em; direction:ltr; }
+    .reward-panel h2 { color:#a85d7d; margin:4px 0 8px; line-height:1.6; font-weight:800; font-size:clamp(21px,5.7vw,27px); }
+    .reward-message { font-size:14px; line-height:2.05; color:#704a5d; margin:8px 0 15px; padding:13px 12px; border-radius:15px; background:#fff9f6; border:1px solid #f2e5e3; white-space:pre-line; }
+    .coupons-label { font-size:13px; font-weight:800; margin:6px 0 11px; color:#a0677e; }
+    .coupons { display:grid; gap:9px; }
+    .coupon { position:relative; width:100%; min-height:66px; border:1px dashed #dfa9ba; border-radius:14px; padding:10px 13px; background:linear-gradient(100deg,#fffaf8,#ffeef2); display:flex; align-items:center; gap:12px; text-align:right; color:#795366; opacity:0; transform:translateY(15px); box-shadow:0 3px 9px #be749114; transition: border-color .2s, background .2s, box-shadow .2s, transform .2s; }
+    .reward-panel.revealed .coupon { animation: coupon-rise .6s var(--ease) both; }
+    .reward-panel.revealed .coupon:nth-child(1) { animation-delay:.25s; }
+    .reward-panel.revealed .coupon:nth-child(2) { animation-delay:.4s; }
+    .reward-panel.revealed .coupon:nth-child(3) { animation-delay:.55s; }
+    .coupon:active { transform:scale(.98); }
+    .coupon[aria-pressed='true'] { border-style:solid; border-color:#d58ba5; background:#fce4ed; box-shadow:0 3px 13px #be749130; }
+    .coupon-icon { display:grid; place-items:center; flex:0 0 40px; height:40px; background:#fff; border-radius:13px; font-size:22px; }
+    .coupon-title { display:block; font-size:13px; font-weight:800; }
+    .coupon-sub { display:block; font-size:11px; color:#aa8596; margin-top:2px; }
+    .coupon-arrow { margin-right:auto; color:#c58a9e; font-size:20px; }
+    .coupon-detail { padding:13px 14px; margin-top:12px; background:#f8e7ee; border-radius:14px; text-align:right; border:1px solid #ebcbd8; font-size:12px; color:#754e62; line-height:1.95; animation: detail-appear .3s ease both; }
+    .coupon-detail strong { display:block; color:#ae6484; margin-bottom:2px; }
+    .gift-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:16px; }
+    .gift-actions .action { min-height:43px; }
+    .reward-footer { font-size:11px; margin:14px 0 0; color:#b48c9c; }
+    @keyframes paper-goodbye { to { opacity:0; transform:translateY(65px) scale(.87) rotate(2deg); } }
+    @keyframes gift-leap {
+      0% { transform:translate(var(--gift-start-x,0px),var(--gift-start-y,120px)) scale(.12) rotate(-28deg); opacity:0; }
+      16% { opacity:1; }
+      41% { transform:translate(0,-105px) scale(1.13) rotate(12deg); }
+      70% { transform:translate(0,11px) scale(.91) rotate(-6deg); }
+      86% { transform:translate(0,-17px) scale(1.05) rotate(3deg); }
+      100% { transform:translate(0,0) scale(1) rotate(0); opacity:1; }
+    }
+    @keyframes gift-return { 0% { opacity:0;transform:translateY(30px) scale(.62) rotate(-8deg); } 100% { opacity:1;transform:none; } }
+    @keyframes gift-lid-pop { 0% { transform:none; opacity:1; } 35% { transform:translateY(-44px) rotate(-10deg); } 100% { transform:translate(-50px,-125px) rotate(-27deg); opacity:0; } }
+    @keyframes gift-base-pop { 35% { transform:scale(1.08); } 100% { transform:scale(.96); } }
+    @keyframes magic-glow { 0% { opacity:0; transform:scale(.3); } 55% { opacity:1; transform:scale(1.4); } 100% { opacity:0; transform:scale(2.3); } }
+    @keyframes sparkle-fly { 0% { opacity:0; transform:translate(0,0) scale(.3) rotate(0); } 22% { opacity:1; } 100% { opacity:0; transform:translate(var(--dx),var(--dy)) scale(.45) rotate(var(--spin)); } }
+    @keyframes reward-in { 0% { opacity:0; transform:translateY(48px) scale(.79) rotate(-4deg); } 65% { transform:translateY(-7px) scale(1.025) rotate(1deg); } 100% { opacity:1; transform:none; } }
+    @keyframes coupon-rise { to { opacity:1; transform:translateY(0); } }
+    @keyframes detail-appear { from { opacity:0;transform:translateY(8px); } to { opacity:1;transform:none; } }
+    @media (max-height:680px) { .gift-scene { min-height:280px; } .gift-announcement { min-height:44px; } .gift-box-button { height:185px; } .gift-art { transform:scale(.82); } .reward-panel { padding-top:20px; } }
+    @media (prefers-reduced-motion:reduce) { .gift-tap-hint {animation:none;} .gift-box-button.launching,.gift-box-button.returning,.gift-box-button.opening .gift-lid,.reward-panel.revealed { animation-duration:.01ms!important; } .reward-panel.revealed .coupon { animation-duration:.01ms; animation-delay:0ms; } .gift-sparkles {display:none;} }
+  </style>
+</head>
+<body>
+<main class="experience" id="experience">
+  <div class="backdrop" aria-hidden="true">
+    <span class="orb one"></span><span class="orb two"></span><span class="orb three"></span>
+    <span class="petal" style="--top:10%;--left:15%;--size:9px;--duration:6s;--tint:#f1bdcb"></span>
+    <span class="petal" style="--top:22%;--left:77%;--size:7px;--duration:8s;--delay:-3s"></span>
+    <span class="petal" style="--top:44%;--left:9%;--size:13px;--duration:9s;--delay:-4s;--tint:#fad0d8"></span>
+    <span class="petal" style="--top:67%;--left:92%;--size:8px;--duration:7s;--delay:-2s"></span>
+    <span class="petal" style="--top:81%;--left:19%;--size:10px;--duration:8s;--delay:-1s;--tint:#ecc8eb"></span>
+    <span class="petal" style="--top:73%;--left:66%;--size:8px;--duration:6s;--delay:-5s"></span>
+    <span class="star a">✦</span><span class="star b">✧</span><span class="star c">✦</span>
+  </div>
+
+  <header class="intro">
+    <div class="eyebrow">A LITTLE SURPRISE FOR YOU</div>
+    <h1>یه نامه برای تو... 💌</h1>
+    <p>یه چیز کوچولو توی این پاکت منتظرته</p>
+  </header>
+
+  <section class="stage-wrap" aria-label="پاکت نامه">
+    <button class="envelope-button" id="openButton" type="button" aria-label="باز کردن پاکت نامه">
+      <div class="envelope" id="envelope" aria-hidden="true">
+        <div class="envelope-back"></div>
+        <div class="mini-letter" id="miniLetter"><span>♡</span><span></span></div>
+        <div class="envelope-front"></div>
+        <div class="envelope-flap"></div>
+        <div class="seal">♥</div>
+      </div>
+    </button>
+  </section>
+  <div class="hint" id="hint"><span class="hint-icon">☝🏻</span> روی پاکت بزن تا باز بشه</div>
+  <div class="footer-tag">MADE WITH A LITTLE BIT OF MAGIC ✨</div>
+</main>
+
+<section class="overlay" id="letterOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="letterTitle">
+  <div class="veil" id="veil"></div>
+  <article class="letter-card" id="letterCard" tabindex="-1">
+    <div class="card-top"><span>ONLY FOR YOU · Nº 001</span><span class="stamp">♡</span></div>
+    <div class="letter-heading">
+      <span class="crown">👑</span>
+      <h2 id="letterTitle"></h2>
+      <div class="rule"></div>
+    </div>
+    <div class="message-area" aria-label="متن نامه">
+      <span id="typedMessage"></span><span class="caret" id="caret" aria-hidden="true"></span>
+    </div>
+    <p class="letter-signature" id="signature"></p>
+    <div class="letter-actions">
+      <button class="action" type="button" id="skipButton" hidden>نمایش کامل متن</button>
+      <button class="action primary" type="button" id="replayButton" hidden>↻ از اول ببین</button>
+      <button class="action" type="button" id="closeButton">بستن نامه</button>
+    </div>
+    <div class="letter-doodle" aria-hidden="true">✧ ♡ ✧</div>
+  </article>
+</section>
+
+
+<section class="gift-overlay" id="giftOverlay" hidden role="dialog" aria-modal="true" aria-label="کادوی مخفی پرنسس">
+  <div class="gift-veil" aria-hidden="true"></div>
+  <div class="gift-scene" id="giftScene">
+    <div class="gift-announcement" id="giftAnnouncement" aria-live="polite">صبر کن... یه چیز دیگه هم مونده 🎀</div>
+    <button class="gift-box-button" id="giftBoxButton" type="button" aria-label="باز کردن کادوی مخفی" disabled>
+      <span class="gift-art" aria-hidden="true">
+        <span class="gift-ground"></span><span class="gift-base"></span>
+        <span class="gift-lid"><span class="gift-bow"><span class="gift-knot"></span></span></span>
+      </span>
+    </button>
+    <div class="gift-sparkles" id="giftSparkles" aria-hidden="true"></div>
+    <p class="gift-tap-hint" id="giftHint">یه لمس کوچولو تا سورپرایز بعدی ✨</p>
+  </div>
+  <article class="reward-panel" id="rewardPanel" hidden tabindex="-1" aria-labelledby="rewardTitle">
+    <button class="gift-close" id="dismissGiftButton" type="button" aria-label="بستن کادو">×</button>
+    <div class="reward-symbol" aria-hidden="true">🤍</div>
+    <p class="reward-eyebrow">ONE MORE LITTLE THING</p>
+    <h2 id="rewardTitle">این یکی برای روزای شلوغه 🌷</h2>
+    <p class="reward-message">فقط خواستم یادت بندازم که لازم نیست همیشه قوی‌ترین نسخه‌ی خودت باشی.
+همین که داری ادامه می‌دی، خودش خیلی ارزشمنده.
+و آره... تو تنها نیستی 🤍</p>
+    <p class="coupons-label">سه تا کوپن کوچولو، هر وقت که خواستی 🎟️</p>
+    <div class="coupons" role="group" aria-label="سه کوپن پرنسس">
+      <button class="coupon" type="button" data-coupon="comfort" aria-pressed="false"><span class="coupon-icon">💌</span><span><span class="coupon-title">دلگرمی فوری</span><span class="coupon-sub">برای وقتی که یه کم انرژی می‌خوای</span></span><span class="coupon-arrow">‹</span></button>
+      <button class="coupon" type="button" data-coupon="vent" aria-pressed="false"><span class="coupon-icon">💬</span><span><span class="coupon-title">غر زدن آزاد</span><span class="coupon-sub">بدون قضاوت، بدون توضیح اضافه</span></span><span class="coupon-arrow">‹</span></button>
+      <button class="coupon" type="button" data-coupon="rest" aria-pressed="false"><span class="coupon-icon">🌿</span><span><span class="coupon-title">استراحت بدون عذاب وجدان</span><span class="coupon-sub">یادآوری یک حق کاملاً طبیعی</span></span><span class="coupon-arrow">‹</span></button>
+    </div>
+    <div id="couponDetail" class="coupon-detail" hidden role="status" aria-live="polite"></div>
+    <div class="gift-actions">
+      <button class="action primary" id="readAgainButton" type="button">💌 نامه رو دوباره بخون</button>
+      <button class="action" id="reopenGiftButton" type="button">↻ دوباره کادو رو باز کن</button>
+    </div>
+    <p class="reward-footer">برای روزایی که یه یادآوری کوچولو لازمه ✦</p>
+  </article>
+</section>
+
+<script>
+  // ✨ متن نامه و امضا را می‌توانی همین‌جا ویرایش کنی.
+  const LETTER_TITLE = 'برای پرنسس';
+  const LETTER_MESSAGE = `توی یکی از همین روزهای شلوغ 🌷
+
+هی پرنسس قشنگ!
+
+می‌دونم این روزا سرت خیلی شلوغه و کلی فکر و دغدغه هست که باید باهاشون کنار بیای. می‌دونم بعضی وقتا همه‌چی با هم اتفاق می‌افته و حتی فرصت نمی‌کنی یه نفس راحت بکشی.
+
+شاید بعضی روزا خسته‌تر از اونی باشی که بخوای درباره‌ش حرف بزنی، یا حتی حوصله توضیح دادن اینکه چی توی ذهنت می‌گذره رو نداشته باشی.
+
+و می‌خوام بدونی که همه اینا رو درک می‌کنم. 🤍
+
+فقط یه چیز کوچولو هست که دوست دارم یادت بمونه...
+
+قرار نیست همیشه پرانرژی باشی، همیشه لبخند بزنی یا از پس همه‌چی به بهترین شکل بربیای. گاهی خسته شدن، گاهی بی‌حوصله بودن و حتی یه کم کم آوردن کاملاً طبیعیه.
+
+تو برای ارزشمند بودن، لازم نیست هر روز بهترین نسخه خودت باشی.
+
+اگه یه روز همه‌چی سخت شد، یادت باشه که قرار نیست تمام سختی‌ها رو تنهایی تحمل کنی. آدمایی هستن که براشون مهمی، بهت اهمیت می‌دن و دوست دارن حالت خوب باشه.
+
+منم یکی از همون آدمام. 🌸
+
+نه قراره برای حرف زدن تحت فشار باشی، نه برای جواب دادن عجله‌ای وجود داره. فقط هر وقت دلت خواست، می‌تونی حرف بزنی، از روزت بگی، غر بزنی یا حتی هیچی نگی.
+
+یه چیز دیگه هم بگم؟
+
+به خودت سخت نگیر، باشه؟ تو داری تلاش می‌کنی و همین تلاش‌ها، حتی اونایی که کسی نمی‌بینه، واقعاً ارزشمندن.
+
+امیدوارم وسط تمام این شلوغی‌ها، لحظه‌های کوچیک و قشنگی هم پیدا بشن که یه لبخند واقعی بیارن روی صورتت.
+
+و اگه امروز روز سختی بود، اشکالی نداره...
+
+یه روز سخت، به معنی یه زندگی سخت نیست. روزای آروم‌تر هم از راه می‌رسن. 🌷
+
+این نامه فقط یه یادآوری کوچولو بود که بدونی دیده می‌شی، درک می‌شی و تنها نیستی.
+
+مراقب خودت باش، پرنسس. 🤍`;
+  const LETTER_SIGNATURE = 'با آرزوی روزهای آروم‌تر 🌷';
+
+  const $ = (id) => document.getElementById(id);
+  const experience = $('experience');
+  const openButton = $('openButton');
+  const envelope = $('envelope');
+  const overlay = $('letterOverlay');
+  const card = $('letterCard');
+  const typed = $('typedMessage');
+  const caret = $('caret');
+  const signature = $('signature');
+  const skipButton = $('skipButton');
+  const replayButton = $('replayButton');
+  const closeButton = $('closeButton');
+  const giftOverlay = $('giftOverlay');
+  const giftScene = $('giftScene');
+  const giftButton = $('giftBoxButton');
+  const rewardPanel = $('rewardPanel');
+  const couponDetail = $('couponDetail');
+  const sparkles = $('giftSparkles');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let timers = [];
+  let typingTimer = null;
+  let state = 'closed';
+  let chars = [];
+  let charIndex = 0;
+
+  const COUPON_DETAILS = {
+    comfort: { title: '💌 کوپن دلگرمی فوری', message: 'هر وقت یه کم دلگرمی لازم داشتی، فقط بگو «امروز یه کم دلگرمی می‌خوام». نه لازمِ دلیل بیاری، نه توضیح اضافه بدی. یه گوش شنوا و چند کلمه‌ی آروم‌کننده هست.' },
+    vent: { title: '💬 کوپن غر زدن آزاد', message: 'گاهی فقط لازمه آدم از یه روز سخت غر بزنه! اینجا لازم نیست جمله‌هات مرتب باشن یا برای احساست توضیح بدی. می‌تونی حرف بزنی و فقط شنیده بشی.' },
+    rest: { title: '🌿 کوپن استراحت بدون عذاب وجدان', message: 'چند دقیقه هیچ کاری نکن. یه لیوان آب بخور، نفس بکش یا به چیزی که دوست داری فکر کن. استراحت جایزه‌ی بعد از خستگی نیست؛ بخشی از مراقبت از خودته.' }
+  };
+
+  $('letterTitle').textContent = LETTER_TITLE;
+  signature.textContent = LETTER_SIGNATURE;
+
+  function after(ms, callback) {
+    const id = window.setTimeout(callback, ms);
+    timers.push(id);
+    return id;
+  }
+  function clearAllTimers() {
+    timers.forEach(clearTimeout); timers = [];
+    clearTimeout(typingTimer); typingTimer = null;
+  }
+  function graphemes(s) {
+    return typeof Intl.Segmenter === 'function'
+      ? [...new Intl.Segmenter('fa', { granularity: 'grapheme' }).segment(s)].map(x => x.segment)
+      : Array.from(s);
+  }
+  function stopTyping(showFull = false) {
+    clearTimeout(typingTimer);
+    typingTimer = null;
+    if (showFull) typed.textContent = LETTER_MESSAGE;
+    caret.classList.add('done');
+    skipButton.hidden = true;
+    replayButton.hidden = false;
+    signature.classList.add('show');
+    state = 'read';
+    requestAnimationFrame(() => { if (card.scrollHeight > card.clientHeight) card.scrollTop = card.scrollHeight; });
+  }
+  function tick() {
+    if (state !== 'typing') return;
+    if (charIndex >= chars.length) { stopTyping(); return; }
+    const next = chars[charIndex++];
+    typed.textContent += next;
+    card.scrollTop = card.scrollHeight;
+    let delay = 23;
+    if (next === '\n') delay = 160;
+    else if (/[.!؟…]/u.test(next)) delay = 230;
+    else if (/[،,:؛]/u.test(next)) delay = 90;
+    typingTimer = setTimeout(tick, reducedMotion ? 0 : delay);
+  }
+  function startTyping() {
+    state = 'typing';
+    typed.textContent = '';
+    card.scrollTop = 0;
+    signature.classList.remove('show');
+    replayButton.hidden = true;
+    skipButton.hidden = false;
+    caret.classList.remove('done');
+    chars = graphemes(LETTER_MESSAGE);
+    charIndex = 0;
+    if (reducedMotion) { stopTyping(true); return; }
+    tick();
+  }
+  function showPaper() {
+    if (state !== 'opening') return;
+    const startRect = $('miniLetter').getBoundingClientRect();
+    overlay.hidden = false;
+    card.style.transform = 'none';
+    const endRect = card.getBoundingClientRect();
+    const startX = startRect.left + startRect.width / 2;
+    const endX = endRect.left + endRect.width / 2;
+    card.style.setProperty('--from-x', `${Math.round(startX - endX)}px`);
+    card.style.setProperty('--from-y', `${Math.round(startRect.top - endRect.top)}px`);
+    card.style.setProperty('--from-scale', `${Math.min(.83, Math.max(.48, startRect.width / endRect.width)).toFixed(3)}`);
+    card.style.transform = '';
+
+    // Keep the fixed full-size paper in front of the envelope during its entire flight.
+    envelope.classList.add('handoff');
+    overlay.classList.add('visible');
+    card.classList.add('arriving');
+    experience.classList.add('reading');
+    after(reducedMotion ? 50 : 1220, () => {
+      if (state !== 'opening') return;
+      card.classList.add('settled');
+      card.style.transform = 'none';
+      card.classList.remove('arriving');
+      card.focus({ preventScroll: true });
+      startTyping();
+    });
+  }
+  function openEnvelope() {
+    if (state !== 'closed') return;
+    state = 'opening';
+    openButton.disabled = true;
+    envelope.classList.add('open');
+    $('hint').textContent = 'یه لحظه جادو... ✨';
+    after(reducedMotion ? 0 : 750, () => envelope.classList.add('flap-behind'));
+    after(reducedMotion ? 50 : 1510, showPaper);
+  }
+  function resetLetter({ showGift = false, reopen = false } = {}) {
+    clearAllTimers();
+    state = 'closing';
+    overlay.classList.add('closing');
+    overlay.classList.remove('visible');
+    experience.classList.remove('reading');
+    after(reducedMotion ? 15 : 390, () => {
+      overlay.hidden = true;
+      overlay.classList.remove('closing');
+      card.classList.remove('arriving', 'settled');
+      card.style.transform = '';
+      typed.textContent = '';
+      signature.classList.remove('show');
+      caret.classList.remove('done');
+      skipButton.hidden = true;
+      replayButton.hidden = true;
+      envelope.classList.remove('open', 'flap-behind', 'handoff');
+      $('hint').innerHTML = '<span class="hint-icon">☝🏻</span> روی پاکت بزن تا باز بشه';
+      openButton.disabled = false;
+      state = 'closed';
+      if (showGift) after(reducedMotion ? 60 : 210, launchGift);
+      else if (reopen) after(reducedMotion ? 60 : 180, openEnvelope);
+      else openButton.focus({ preventScroll: true });
+    });
+  }
+  function prepareGift() {
+    rewardPanel.hidden = true;
+    rewardPanel.classList.remove('revealed');
+    giftScene.hidden = false;
+    giftScene.classList.remove('ready', 'vanishing', 'launching');
+    giftButton.classList.remove('launching', 'opening', 'returning');
+    giftButton.disabled = true;
+    sparkles.classList.remove('active');
+    couponDetail.hidden = true;
+    couponDetail.replaceChildren();
+    document.querySelectorAll('.coupon').forEach(btn => btn.setAttribute('aria-pressed', 'false'));
+  }
+  function launchGift() {
+    if (state !== 'closed') return;
+    state = 'gift-flying';
+    prepareGift();
+    giftOverlay.hidden = false;
+    const rect = giftButton.getBoundingClientRect();
+    const origin = envelope.getBoundingClientRect();
+    giftButton.style.setProperty('--gift-start-x', `${Math.round(origin.left + origin.width / 2 - (rect.left + rect.width / 2))}px`);
+    giftButton.style.setProperty('--gift-start-y', `${Math.round(origin.top + origin.height / 2 - (rect.top + rect.height / 2))}px`);
+    experience.classList.add('gifting');
+    giftScene.classList.add('launching');
+    giftButton.classList.add('launching');
+    after(reducedMotion ? 50 : 1490, () => {
+      if (state !== 'gift-flying') return;
+      state = 'gift-ready';
+      giftButton.classList.remove('launching');
+      giftScene.classList.remove('launching');
+      giftScene.classList.add('ready');
+      giftButton.disabled = false;
+      giftButton.focus({preventScroll:true});
+    });
+  }
+  function makeSparkles() {
+    sparkles.replaceChildren();
+    const colors = ['#fff8bb','#ffd0e2','#e2ceff','#fff','#f7bed6'];
+    for (let i=0; i<26; i++) {
+      const el = document.createElement('span');
+      el.textContent = i % 3 === 0 ? '✦' : i % 3 === 1 ? '✧' : '♥';
+      const theta = i * Math.PI * 2 / 26;
+      const distance = 90 + (i % 5) * 28;
+      el.style.setProperty('--dx', `${Math.round(Math.cos(theta)*distance)}px`);
+      el.style.setProperty('--dy', `${Math.round(Math.sin(theta)*distance)}px`);
+      el.style.setProperty('--spin', `${i%2===0?210:-180}deg`);
+      el.style.setProperty('--spark-color', colors[i%colors.length]);
+      el.style.setProperty('--spark-size', `${13+i%5*3}px`);
+      el.style.setProperty('--spark-delay', `${i%4*0.04}s`);
+      el.style.setProperty('--spark-duration', `${.7+(i%5)*.12}s`);
+      sparkles.append(el);
+    }
+    sparkles.classList.add('active');
+  }
+  function openGift() {
+    if (state !== 'gift-ready') return;
+    state = 'gift-opening';
+    giftButton.disabled = true;
+    giftButton.classList.add('opening');
+    makeSparkles();
+    after(reducedMotion ? 30 : 830, () => {
+      if (state !== 'gift-opening') return;
+      giftScene.classList.add('vanishing');
+      rewardPanel.hidden = false;
+      rewardPanel.classList.add('revealed');
+      state = 'gift-open';
+      after(reducedMotion ? 20 : 350, () => {
+        giftScene.hidden = true;
+        rewardPanel.focus({ preventScroll: true });
+      });
+    });
+  }
+  function dismissGift() {
+    clearAllTimers();
+    giftOverlay.hidden = true;
+    prepareGift();
+    experience.classList.remove('gifting');
+    state = 'closed';
+    openButton.disabled = false;
+    openButton.focus({preventScroll:true});
+  }
+  function replayGift() {
+    if (state !== 'gift-open') return;
+    clearAllTimers();
+    state = 'gift-ready';
+    prepareGift();
+    giftButton.classList.add('returning');
+    giftScene.classList.add('ready');
+    giftButton.disabled = false;
+    after(reducedMotion ? 30 : 720, () => giftButton.classList.remove('returning'));
+    giftButton.focus({preventScroll:true});
+  }
+  function selectCoupon(code, button) {
+    if (state !== 'gift-open') return;
+    const item = COUPON_DETAILS[code];
+    if (!item) return;
+    document.querySelectorAll('.coupon').forEach(btn => btn.setAttribute('aria-pressed', String(btn === button)));
+    couponDetail.replaceChildren();
+    const heading = document.createElement('strong');
+    heading.textContent = item.title;
+    const body = document.createElement('span');
+    body.textContent = item.message;
+    couponDetail.append(heading,body);
+    couponDetail.hidden = false;
+    couponDetail.scrollIntoView({block:'nearest', behavior:reducedMotion?'instant':'smooth'});
+  }
+
+  openButton.addEventListener('click', openEnvelope);
+  skipButton.addEventListener('click', () => { if (state === 'typing') stopTyping(true); });
+  closeButton.addEventListener('click', () => { if (['typing','read'].includes(state)) resetLetter({ showGift:true }); });
+  replayButton.addEventListener('click', () => { if (state === 'read') resetLetter({ reopen:true }); });
+  giftButton.addEventListener('click', openGift);
+  $('dismissGiftButton').addEventListener('click', dismissGift);
+  $('reopenGiftButton').addEventListener('click', replayGift);
+  $('readAgainButton').addEventListener('click', () => { dismissGift(); after(reducedMotion ? 30 : 180, openEnvelope); });
+  document.querySelectorAll('.coupon').forEach(btn => btn.addEventListener('click', () => selectCoupon(btn.dataset.coupon, btn)));
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    if (['typing', 'read'].includes(state)) resetLetter({ showGift:true });
+    else if (['gift-flying','gift-ready','gift-opening','gift-open'].includes(state)) dismissGift();
+  });
+</script>
+</body>
+</html>
